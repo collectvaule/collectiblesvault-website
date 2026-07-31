@@ -17,11 +17,13 @@
 
 html { scroll-behavior: smooth; }
 
+html, body { overflow-x: hidden; max-width: 100%; }
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
   background: radial-gradient(ellipse at top right, rgba(184, 146, 74, 0.10), transparent 45%),
               linear-gradient(180deg, var(--navy-rich) 0%, var(--navy) 40%, var(--navy-deep) 100%);
+  background-attachment: fixed;
   color: var(--white);
   -webkit-font-smoothing: antialiased;
 }
@@ -61,11 +63,17 @@ nav .wrap {
 .brand img { width: 28px; height: 28px; border-radius: 7px; }
 .nav-links {
   display: flex;
-  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px 22px;
   font-size: 13px;
   color: var(--muted);
 }
 .nav-links a:hover { color: var(--gold); }
+@media (max-width: 640px) {
+  nav .wrap { flex-wrap: wrap; row-gap: 10px; }
+  .nav-links { width: 100%; justify-content: center; gap: 8px 16px; font-size: 12.5px; }
+}
 .nav-cta {
   font-size: 13px;
   font-weight: 600;

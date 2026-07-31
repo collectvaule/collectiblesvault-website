@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Features — CollectiblesVault</title>
+<meta name="description" content="Everything a real collection needs — instant AI valuations, category tracking, Face ID security, value charts, nearby sharing, and insurance-ready PDF reports.">
+<link rel="icon" href="assets/logo.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="float-badge" href="index.html#get"><span class="float-badge-dot"></span>Coming Soon — Get Notified</a>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="CollectiblesVault icon">
+      CollectiblesVault
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="why-us.html">Why Us</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</nav>
+
+<section id="how" class="page-section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">See it in action</div>
+      <h2>From photo to valued in seconds</h2>
+    </div>
+    <div class="video-frame reveal">
+      <video controls playsinline preload="metadata" poster="assets/video/poster2.jpg" id="demoVideo">
+        <source src="assets/video/demo2.mp4" type="video/mp4">
+        <track kind="metadata" src="assets/video/captions2.vtt" srclang="en" label="English" id="demoCaptions">
+        Your browser doesn't support embedded video — the app itself does the same thing.
+      </video>
+      <div class="video-caption-overlay" id="videoCaptionOverlay"></div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What it does</div>
+      <h2>Everything a real collection needs</h2>
+      <p>Not just a spreadsheet with photos — a vault built around how collectors actually track and value what they own.</p>
+    </div>
+    <div class="grid stagger">
+      <div class="feature-card reveal">
+        <div class="feature-icon">📷</div>
+        <h3>Instant valuations from a photo</h3>
+        <p>Snap a photo and Auto-Value identifies the item with AI, then prices it from current eBay listings — a live market snapshot. Prefer your own number? Enter it manually anytime.</p>
+        <p class="feature-footnote">Requires your own API keys, entered once in Settings, plus an internet connection: eBay's key is free, Anthropic's runs on prepaid credit you add to your own account (about 1–2¢ per scan). Manual tracking works with no keys and fully offline.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🗂️</div>
+        <h3>Track anything you collect</h3>
+        <p>Cards, figures, globes, framed memorabilia — anything. Organize by category, search instantly, and see your whole collection at a glance.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔒</div>
+        <h3>Locked behind Face ID</h3>
+        <p>Your collection lives only on your device, behind a real vault door and Face ID — no account, no cloud database holding your data.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📈</div>
+        <h3>Value-over-time charts</h3>
+        <p>Watch your collection's worth change over time, broken down by category, with a ledger view built for collectors who track value seriously.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📡</div>
+        <h3>Beam it to another collector</h3>
+        <p>Share Nearby sends your live vault straight to another collector's phone — Bluetooth/Wi-Fi direct, no internet, no account required on either end.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🧾</div>
+        <h3>Insurance-ready PDF reports</h3>
+        <p>Generate a formatted, photo-included report for insurance or estate records — send it by mail, text, print, or save it to Files.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="footer-brand" href="index.html">
+      <img src="assets/logo.svg" alt="">
+      CollectiblesVault
+    </a>
+    <div class="footer-links">
+      <span>Built for collectors, by a collector.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="common.js"></script>
+<script>
+  // Renders captions ourselves in a fixed side panel instead of relying on the browser's native
+  // cue-box positioning. Native <track kind="captions"> ignores our WebVTT position/size cue
+  // settings once custom ::cue styling is applied (a known cross-browser inconsistency) — text
+  // overflowed past the intended box and got clipped at the video edge instead of wrapping. Using
+  // kind="metadata" here means the browser never attempts to render it at all; this listens for
+  // cue changes and displays the text in a plain, fully CSS-controlled overlay instead.
+  var demoVideo = document.getElementById('demoVideo');
+  var captionOverlay = document.getElementById('videoCaptionOverlay');
+  if (demoVideo && captionOverlay) {
+    var demoTrack = demoVideo.textTracks[0];
+    if (demoTrack) {
+      demoTrack.mode = 'hidden';
+      // Driven by timeupdate rather than cuechange — on a first-ever play, the cue list can still
+      // be loading asynchronously from the .vtt file when playback starts, so the first caption's
+      // cuechange event could fire too late (or not at all) to catch it. Recalculating from the
+      // actual currentTime on every tick removes that race condition entirely.
+      var updateCaption = function () {
+        var cues = demoTrack.cues;
+        var active = null;
+        if (cues) {
+          for (var i = 0; i < cues.length; i++) {
+            if (demoVideo.currentTime >= cues[i].startTime && demoVideo.currentTime <= cues[i].endTime) {
+              active = cues[i];
+              break;
+            }
+          }
+        }
+        captionOverlay.textContent = active ? active.text : '';
+        captionOverlay.classList.toggle('is-visible', !!active);
+      };
+      demoVideo.addEventListener('timeupdate', updateCaption);
+      demoVideo.addEventListener('seeked', updateCaption);
+    }
+  }
+</script>
+</body>
+</html>
