@@ -1,0 +1,23 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#1c2340"/>
+      <stop offset="55%" stop-color="#161929"/>
+      <stop offset="100%" stop-color="#020306"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4ac6a"/>
+      <stop offset="100%" stop-color="#b8924a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="200" height="200" rx="44" fill="url(#bg)"/>
+  <rect x="1.5" y="1.5" width="197" height="197" rx="42.5" fill="none" stroke="#2a2d3e" stroke-width="1.5"/>
+
+  <!-- single ring, no handle nub — one clear shape that holds up at every size -->
+  <circle cx="100" cy="100" r="70" fill="none" stroke="url(#gold)" stroke-width="9"/>
+
+  <!-- bigger, simpler padlock -->
+  <path d="M 78 92 v -10 a 22 22 0 0 1 44 0 v 10" fill="none" stroke="url(#gold)" stroke-width="9" stroke-linecap="round"/>
+  <rect x="70" y="92" width="60" height="46" rx="10" fill="url(#gold)"/>
+</svg>
