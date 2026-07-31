@@ -211,15 +211,22 @@
       </div>
 
       <div class="notify-faq">
-        <h3>Do you have a mail account?</h3>
+        <h3>Did tapping the button open a ready-to-send email?</h3>
         <div class="notify-faq-grid">
           <div class="notify-faq-col">
             <div class="notify-faq-label">Yes</div>
-            <p>Tap "Notify Me at Launch" above, or copy the address and send yourself a quick note — either way, it lands straight in my inbox and I'll reach out the moment the app is live.</p>
+            <ol class="notify-steps">
+              <li>Hit send. No need to write anything — it's already addressed to me.</li>
+              <li>I'll reach out personally the moment the app is live.</li>
+            </ol>
           </div>
           <div class="notify-faq-col">
             <div class="notify-faq-label">No</div>
-            <p>No problem — there's no other way for this page to reach you directly, so just bookmark this site and check back. The "Coming Soon" badge up top will update once the app is live on the App Store.</p>
+            <ol class="notify-steps">
+              <li>That usually means your phone's Mail app isn't set up, even if you have an email address you use elsewhere (Gmail, Outlook, etc.).</li>
+              <li>Tap "Copy" below instead, then paste the address into whichever email app you actually use and send it from there.</li>
+              <li>No email address at all? Bookmark this site and check back — the "Coming Soon" badge up top updates once the app is live.</li>
+            </ol>
           </div>
         </div>
       </div>
@@ -290,11 +297,26 @@
     var demoTrack = demoVideo.textTracks[0];
     if (demoTrack) {
       demoTrack.mode = 'hidden';
-      demoTrack.addEventListener('cuechange', function () {
-        var active = demoTrack.activeCues && demoTrack.activeCues[0];
+      // Driven by timeupdate rather than cuechange — on a first-ever play, the cue list can still
+      // be loading asynchronously from the .vtt file when playback starts, so the first caption's
+      // cuechange event could fire too late (or not at all) to catch it. Recalculating from the
+      // actual currentTime on every tick removes that race condition entirely.
+      var updateCaption = function () {
+        var cues = demoTrack.cues;
+        var active = null;
+        if (cues) {
+          for (var i = 0; i < cues.length; i++) {
+            if (demoVideo.currentTime >= cues[i].startTime && demoVideo.currentTime <= cues[i].endTime) {
+              active = cues[i];
+              break;
+            }
+          }
+        }
         captionOverlay.textContent = active ? active.text : '';
         captionOverlay.classList.toggle('is-visible', !!active);
-      });
+      };
+      demoVideo.addEventListener('timeupdate', updateCaption);
+      demoVideo.addEventListener('seeked', updateCaption);
     }
   }
 </script>

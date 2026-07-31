@@ -580,17 +580,45 @@ section.alt { background: rgba(255,255,255,0.015); border-top: 1px solid var(--b
   letter-spacing: 0.8px;
   text-transform: uppercase;
   color: var(--gold-bright);
-  margin-bottom: 8px;
-}
-.notify-faq-col p {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--muted);
+  margin-bottom: 12px;
 }
 @media (max-width: 640px) {
   .notify-faq-grid { grid-template-columns: 1fr; }
 }
+.notify-steps {
+  list-style: none;
+  counter-reset: notify-step;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+.notify-steps li {
+  counter-increment: notify-step;
+  position: relative;
+  padding: 0 0 0 30px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.notify-steps li::before {
+  content: counter(notify-step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notify-steps li strong { color: var(--white); }
 
 /* ---------- Footer ---------- */
 footer {
