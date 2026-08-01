@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — evdev</title>
+<meta name="description" content="Get help with CollectiblesVault or any evdev app — bug reports, refunds, privacy questions, and how to reach us directly.">
+<link rel="icon" href="assets/logo.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="evdev icon">
+      evdev
+    </a>
+    <div class="nav-links">
+      <a href="collectiblesvault/index.html">CollectiblesVault</a>
+      <a href="support.html">Support</a>
+    </div>
+  </div>
+</nav>
+
+<section id="support" class="page-section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Support</div>
+      <h2>Need a hand?</h2>
+      <p>Most questions are answered below. Anything else, email us directly and we'll get back to you personally.</p>
+    </div>
+    <div class="grid stagger">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🐞</div>
+        <h3>Found a bug?</h3>
+        <p>Email us a quick description of what happened and, if you can, what you were doing right before it — screenshots help a lot.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">💳</div>
+        <h3>Need a refund?</h3>
+        <p>All purchases go through Apple's App Store, so refunds are handled by Apple, not us — request one at reportaproblem.apple.com.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔒</div>
+        <h3>Privacy question?</h3>
+        <p>CollectiblesVault stores your collection only on your device — no account, no cloud. See the full breakdown on the <a href="collectiblesvault/privacy.html" style="color: var(--gold);">Privacy page</a>.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">💡</div>
+        <h3>Feature request?</h3>
+        <p>We read every email. Tell us what you're trying to do and we'll see if it fits where the app is headed.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔑</div>
+        <h3>Trouble with API keys?</h3>
+        <p>Auto-Value needs your own eBay and Anthropic keys entered in Settings. Double-check they're pasted in full with no extra spaces — that's the most common issue.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">✉️</div>
+        <h3>Anything else</h3>
+        <p>Just email us. A real person reads and replies to every message.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="cta-block reveal">
+      <h2>Contact us</h2>
+      <p>We usually reply within a day or two.</p>
+      <a class="btn-primary" href="mailto:evan@giaquinto.us?subject=Support%20Request">Email Support</a>
+      <div class="cta-fallback">
+        <span>Button not opening an email app? Copy the address instead:</span>
+        <button type="button" class="copy-email" data-email="evan@giaquinto.us">
+          <span class="copy-email-text">evan@giaquinto.us</span>
+          <span class="copy-email-status">Copy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="footer-brand" href="index.html">
+      <img src="assets/logo.svg" alt="">
+      evdev
+    </a>
+    <div class="footer-links">
+      <a href="collectiblesvault/index.html">CollectiblesVault</a>
+    </div>
+  </div>
+</footer>
+
+<script src="common.js"></script>
+<script>
+  var copyBtn = document.querySelector('.copy-email');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var email = copyBtn.getAttribute('data-email');
+      var statusEl = copyBtn.querySelector('.copy-email-status');
+      var done = function () {
+        statusEl.textContent = 'Copied!';
+        setTimeout(function () { statusEl.textContent = 'Copy'; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(done).catch(done);
+      } else {
+        var temp = document.createElement('textarea');
+        temp.value = email;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        done();
+      }
+    });
+  }
+</script>
+</body>
+</html>
